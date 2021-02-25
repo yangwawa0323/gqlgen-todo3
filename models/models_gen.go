@@ -2,6 +2,27 @@
 
 package models
 
+type Chapter struct {
+	ID     string `json:"id"`
+	Title  string `json:"title"`
+	Author *User  `json:"author"`
+}
+
+type ChapterInput struct {
+	Title string `json:"title"`
+}
+
+type Class struct {
+	ClassID     string `json:"classId"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+
+type NewClass struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+
 type NewTodo struct {
 	Text   string `json:"text"`
 	UserID string `json:"userId"`

@@ -1,4 +1,6 @@
 
 type Query {
   todos: [Todo!]!
+  chapters: [Chapter!]!
+  classes: [Class!]!
 }

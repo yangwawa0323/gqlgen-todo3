@@ -1,0 +1,10 @@
+# schema use lowercase field name 
+type Chapter {
+    id: ID!
+    title: String!
+    author: User!
+}
+
+input ChapterInput {
+    title: String!
+}

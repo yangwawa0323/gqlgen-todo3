@@ -1,0 +1,10 @@
+type Class {
+    classId : ID!
+    title: String!
+    description: String!
+}
+
+input NewClass {
+    title: String!
+    description: String!
+}

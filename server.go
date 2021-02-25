@@ -10,10 +10,25 @@ import (
 
 	// "github.com/yangwawa0323/gqlgen-todo3/graph"
 	"github.com/yangwawa0323/gqlgen-todo3/graph/generated"
+	"github.com/yangwawa0323/gqlgen-todo3/models"
 	"github.com/yangwawa0323/gqlgen-todo3/resolvers"
 )
 
 const defaultPort = "8080"
+
+var (
+	globalResolver *resolvers.Resolver
+)
+
+func init() {
+	globalResolver = &resolvers.Resolver{
+		Chapters: &[]models.Chapter{
+			{Title: "Chapter 1"},
+			{Title: "Chapter 2"},
+		},
+		Classes: &[]models.Class{},
+	}
+}
 
 func main() {
 	port := os.Getenv("PORT")
@@ -21,7 +36,7 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolvers.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: globalResolver}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
