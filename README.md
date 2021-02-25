@@ -603,6 +603,9 @@ mutation deleteOrder ($orderId: Int!) {
 
 
 
+
+
+
 ## 分离模型的定义
 
 在有些时候我们需要将 graphql 文件分开定义. 比如说: user.graphql, todo.graphql
@@ -673,6 +676,10 @@ autobind: []
 ```
 
 > 重点在于 `resolver` 段的配置, 由于单独分离了schema 的定义,我们将不能使用缺省的 **layout**:*follow-schema*  的方式,这样会造成不同的目录下的包名称都 **graph** 而产生 `golang` 包引入的错误
+>
+> [更多解决方法](#resolver),请继续查看最后的解决方案
+
+#### 分离之前的resolver段
 
 下面为原始的**resolver** 段的格式(不适用于分离模式)
 
@@ -699,9 +706,13 @@ resolver:
 
 > 上面这段的意思是将所有的 **schema** 最终生成到一个 `resolvers/resolver.go`文件中.	 
 
-
-
 范例可以从 [github.com/yangwawa0323/gqlgen-todo3](https://github.com/yangwawa0323/gqlgen-todo3)下载查看
+
+
+
+#### model 段的分离
+
+可以让 gqlgen 生成的模块于 **autobind** 生成的模块放入统一的包名中
 
 ```shell
 # Refer to https://gqlgen.com/config/
@@ -736,3 +747,26 @@ autobind:
   - "github.com/yangwawa0323/gqlgen-todo3/models"
 #[]
 ```
+
+
+> 注意:每次在添加新的schema,重新运行 gqlgen generate的时候,需要先删除原先的 resolvers/resolver.go 文件, 注意备份原有的 resolver 中的信息.
+
+
+
+#### <a href="#resolver">resolver段文件分离</a>
+
+resolver段也可以根据文件做分离, 下面的例子给出了详细的配置
+
+```shell
+resolver:
+  # filename: resolvers/resolver.go
+  layout: follow-schema
+  dir: resolvers
+  package: resolvers
+  type: Resolver
+  filename_template: "{name}.resolvers.go
+```
+
+**dir** : 定义目录夹
+
+**layout**: *follow-schema* 需要和 **filename_template** 结合使用 
