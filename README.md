@@ -702,3 +702,37 @@ resolver:
 
 
 范例可以从 [github.com/yangwawa0323/gqlgen-todo3](https://github.com/yangwawa0323/gqlgen-todo3)下载查看
+
+```shell
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+  - "schema/**/*.graphql"
+
+exec:
+  filename: graph/generated/generated.go
+  package: generated
+
+model:
+  #filename: graph/model/models_gen.go
+  ###################################################
+  # Put all models in the folder <project_dir>/models
+  filename: models/models_gen.go
+  package: models
+
+resolver:
+  filename: resolvers/resolver.go
+  package: resolvers
+  type: Resolver
+
+# Optional, set to true if you prefer []Thing over []*Thing
+omit_slice_element_pointers: true
+
+###############################################################
+# autobind the models which were been defined in golang struct 
+# referencing in the gqlgen gernereate schemas.
+autobind: 
+  - "github.com/yangwawa0323/gqlgen-todo3/models"
+#[]
+```
