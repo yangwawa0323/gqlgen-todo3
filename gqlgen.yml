@@ -21,4 +21,4 @@ resolver:
 omit_slice_element_pointers: true
 
 autobind:
-  - "github.com/yangwawa0323/gqlgen-todo3"
+  - "github.com/yangwawa0323/gqlgen-todo3/models"

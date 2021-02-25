@@ -6,16 +6,16 @@ import (
 	"context"
 
 	"github.com/yangwawa0323/gqlgen-todo3/graph/generated"
-	"github.com/yangwawa0323/gqlgen-todo3/graph/model"
+	"github.com/yangwawa0323/gqlgen-todo3/models"
 )
 
 type Resolver struct{}
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input models.NewTodo) (*models.Todo, error) {
 	panic("not implemented")
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]model.Todo, error) {
+func (r *queryResolver) Todos(ctx context.Context) ([]models.Todo, error) {
 	panic("not implemented")
 }
 
